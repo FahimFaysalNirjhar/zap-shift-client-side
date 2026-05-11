@@ -12,5 +12,5 @@ body {
   name: "light";
   default: true;
   --color-primary: #caeb66;
-  --color-secondary: teal;
+  --color-secondary: #eaeced;
 }

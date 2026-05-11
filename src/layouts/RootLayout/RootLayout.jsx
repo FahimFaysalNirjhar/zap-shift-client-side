@@ -4,7 +4,7 @@ import Navbar from "../../pages/Shared/Navbar/Navbar";
 
 const RootLayout = () => {
   return (
-    <div>
+    <div className="bg-secondary min-h-screen">
       <Navbar></Navbar>
       <Outlet></Outlet>
     </div>

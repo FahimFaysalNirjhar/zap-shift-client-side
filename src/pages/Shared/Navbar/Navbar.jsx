@@ -1,83 +1,56 @@
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
 import { NavLink } from "react-router";
-import { BsArrowUpRight } from "react-icons/bs";
 import { ImArrowUpRight2 } from "react-icons/im";
 
 const Navbar = () => {
+  const navStyle = ({ isActive }) =>
+    isActive
+      ? "underline decoration-primary decoration-4 underline-offset-8 font-bold text-black"
+      : "text-[#606060] text-base font-medium";
+
   const links = (
     <>
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "underline decoration-primaryunderline decoration-primary decoration-4 underline-offset-8 font-bold"
-              : "text-[#606060] text-base font-medium"
-          }
-        >
+        <NavLink to="/services" className={navStyle}>
           Services
         </NavLink>
       </li>
+
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "underline decoration-primaryunderline decoration-primary decoration-4 underline-offset-8 font-bold"
-              : "text-[#606060] text-base font-medium"
-          }
-        >
+        <NavLink to="/coverage" className={navStyle}>
           Coverage
         </NavLink>
       </li>
+
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "underline decoration-primaryunderline decoration-primary decoration-4 underline-offset-8 font-bold"
-              : "text-[#606060] text-base font-medium"
-          }
-        >
+        <NavLink to="/about" className={navStyle}>
           About Us
         </NavLink>
       </li>
+
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "underline decoration-primaryunderline decoration-primary decoration-4 underline-offset-8 font-bold"
-              : "text-[#606060] text-base font-medium"
-          }
-        >
+        <NavLink to="/pricing" className={navStyle}>
           Pricing
         </NavLink>
       </li>
+
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "underline decoration-primaryunderline decoration-primary decoration-4 underline-offset-8 font-bold"
-              : "text-[#606060] text-base font-medium"
-          }
-        >
+        <NavLink to="/blog" className={navStyle}>
           Blog
         </NavLink>
       </li>
+
       <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "underline decoration-primaryunderline decoration-primary decoration-4 underline-offset-8 font-bold"
-              : "text-[#606060] text-base font-medium"
-          }
-        >
+        <NavLink to="/contact" className={navStyle}>
           Contact
         </NavLink>
       </li>
     </>
   );
   return (
-    <div>
-      <div className="navbar bg-base-100 shadow-sm">
+    <div className="max-w-7xl mx-auto lg:py-9">
+      <div className="navbar bg-base-100 shadow-sm lg:rounded-2xl lg:p-4">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -104,22 +77,29 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">
-            <Logo></Logo>
+          <a className="btn btn-ghost text-xl hidden md:flex">
+            <Logo />
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end gap-4">
+
+        {/* RIGHT: Sign In + Sign Up + Arrow */}
+        <div className="navbar-end flex items-center gap-2">
+          {/* Sign In: hidden on mobile, shown sm+ */}
           <a className="btn btn-outline border-[#DADADA] text-[#606060] font-bold">
             Sign In
           </a>
-          <div className="flex">
-            <a className="btn bg-primary text-[#1F1F1F] font-bold">Sign Up</a>
-            <div className=" rounded-full bg-[#1E1E1E] flex items-center justify-center p-3">
-              <ImArrowUpRight2 className="text-primary text-base stroke-[0.5]" />
-            </div>
+
+          {/* Sign Up + Arrow */}
+          <div className="flex items-center">
+            <a className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0">
+              Sign Up
+            </a>
+            <a className="bg-[#1E1E1E] rounded-full flex items-center justify-center p-2 sm:p-[10px] shrink-0">
+              <ImArrowUpRight2 className="text-primary text-xs sm:text-sm stroke-[0.5]" />
+            </a>
           </div>
         </div>
       </div>
