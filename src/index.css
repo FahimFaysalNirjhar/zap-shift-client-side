@@ -14,3 +14,44 @@ body {
   --color-primary: #caeb66;
   --color-secondary: #eaeced;
 }
+
+/* ===== Carousel dot fix ===== */
+
+/* This is the key line — the library hard-codes overflow:hidden here */
+.carousel.carousel-slider {
+  overflow: visible !important;
+}
+
+/* Bottom-left dots */
+.carousel .control-dots {
+  position: absolute !important;
+  bottom: 25px !important;
+  left: 50px !important;
+  right: auto !important; /* remove default right:0 */
+  width: auto !important; /* remove default width:100% */
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important; /* library sets text-align:center */
+}
+
+.carousel .control-dots .dot {
+  width: 35px !important;
+  height: 6px !important;
+  border-radius: 999px !important;
+  background: #cfe3e6 !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  transition: background 0.3s !important;
+}
+
+.carousel .control-dots .dot.selected {
+  background: #0d7c86 !important;
+}
+
+.carousel .slide {
+  background: transparent !important;
+}
