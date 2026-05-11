@@ -45,11 +45,11 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full px-6">
+                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full ">
                     Track Your Parcel
                   </button>
 
-                  <button className="w-11 h-11 rounded-full bg-black flex items-center justify-center ml-2">
+                  <button className="w-9 h-9 rounded-full bg-black flex items-center justify-center ">
                     <ImArrowUpRight2 className="text-primary text-sm" />
                   </button>
                 </div>
@@ -104,11 +104,11 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full px-6">
+                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full ">
                     Track Your Parcel
                   </button>
 
-                  <button className="w-11 h-11 rounded-full bg-black flex items-center justify-center ml-2">
+                  <button className="w-9 h-9 rounded-full bg-black flex items-center justify-center ">
                     <ImArrowUpRight2 className="text-primary text-sm" />
                   </button>
                 </div>
@@ -163,11 +163,11 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full px-6">
+                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full">
                     Track Your Parcel
                   </button>
 
-                  <button className="w-11 h-11 rounded-full bg-black flex items-center justify-center ml-2">
+                  <button className="w-9 h-9 rounded-full bg-black flex items-center justify-center ">
                     <ImArrowUpRight2 className="text-primary text-sm" />
                   </button>
                 </div>
