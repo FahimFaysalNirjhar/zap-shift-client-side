@@ -88,13 +88,13 @@ const Navbar = () => {
         {/* RIGHT: Sign In + Sign Up + Arrow */}
         <div className="navbar-end flex items-center gap-2">
           {/* Sign In: hidden on mobile, shown sm+ */}
-          <a className="btn btn-outline border-[#DADADA] text-[#606060] font-bold">
+          <a className="btn btn-outline border-[#DADADA] text-[#606060] font-bold hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
             Sign In
           </a>
 
           {/* Sign Up + Arrow */}
           <div className="flex items-center">
-            <a className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs border-0 sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0">
+            <a className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs border-0 sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0 hover:bg-[#0F172A] hover:text-white">
               Sign Up
             </a>
             <a className="bg-[#1E1E1E] rounded-full flex items-center justify-center p-2 sm:p-[10px] shrink-0">

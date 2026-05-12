@@ -45,7 +45,7 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full ">
+                  <button className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white">
                     Track Your Parcel
                   </button>
 
@@ -55,7 +55,7 @@ const Banner = () => {
                 </div>
 
                 {/* Rider Button */}
-                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6">
+                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
                   Be A Rider
                 </button>
               </div>
@@ -104,7 +104,7 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full ">
+                  <button className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white">
                     Track Your Parcel
                   </button>
 
@@ -114,7 +114,7 @@ const Banner = () => {
                 </div>
 
                 {/* Rider Button */}
-                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6">
+                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
                   Be A Rider
                 </button>
               </div>
@@ -163,7 +163,7 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none hover:bg-primary text-black font-bold rounded-full">
+                  <button className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white">
                     Track Your Parcel
                   </button>
 
@@ -173,7 +173,7 @@ const Banner = () => {
                 </div>
 
                 {/* Rider Button */}
-                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6">
+                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
                   Be A Rider
                 </button>
               </div>
