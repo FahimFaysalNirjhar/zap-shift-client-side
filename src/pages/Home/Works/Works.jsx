@@ -33,7 +33,7 @@ const services = [
 
 const Works = () => {
   return (
-    <div className="px-4 py-8 max-w-7xl mx-auto">
+    <div className="px-4 py-8 max-w-6xl mx-auto">
       <h2 className="text-3xl font-extrabold text-base-200  mb-6">
         How it Works
       </h2>
