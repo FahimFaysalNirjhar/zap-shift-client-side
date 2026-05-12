@@ -13,6 +13,7 @@ body {
   default: true;
   --color-primary: #caeb66;
   --color-secondary: #eaeced;
+  --color-base-200: #03373d;
 }
 
 /* ===== Carousel dot fix ===== */

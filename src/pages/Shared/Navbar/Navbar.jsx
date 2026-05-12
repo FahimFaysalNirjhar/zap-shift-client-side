@@ -94,7 +94,7 @@ const Navbar = () => {
 
           {/* Sign Up + Arrow */}
           <div className="flex items-center">
-            <a className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0">
+            <a className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs border-0 sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0">
               Sign Up
             </a>
             <a className="bg-[#1E1E1E] rounded-full flex items-center justify-center p-2 sm:p-[10px] shrink-0">
