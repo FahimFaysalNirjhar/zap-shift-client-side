@@ -64,7 +64,7 @@ const Banner = () => {
             {/* Right Image */}
             <div className="flex justify-center items-center h-full ">
               <img
-                src="/public/banner1-removebg-preview.png"
+                src="/banner1-removebg-preview.png"
                 alt=""
                 className="w-[85%] max-w-md object-contain"
               />

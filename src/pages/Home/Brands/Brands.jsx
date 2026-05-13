@@ -6,7 +6,7 @@ import casio from "../../../assets/brands/casio.png";
 import moonstar from "../../../assets/brands/moonstar.png";
 import star from "../../../assets/brands/star.png";
 import startPeople from "../../../assets/brands/start_people.png";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, FreeMode } from "swiper/modules";
 
 const Brands = () => {
   const brandLogos = [amazon, casio, moonstar, star, startPeople];
@@ -16,10 +16,9 @@ const Brands = () => {
         We've helped thousands of sales teams
       </h1>
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, FreeMode]}
         slidesPerView={4}
         freeMode={true}
-        freeModeMomentum={false}
         loop={true}
         speed={4000}
         spaceBetween={20}
