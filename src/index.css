@@ -56,3 +56,7 @@ body {
 .carousel .slide {
   background: transparent !important;
 }
+
+.brand-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}

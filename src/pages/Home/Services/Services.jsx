@@ -37,7 +37,7 @@ const Services = () => {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl text-justify font-bold leading-snug">
+              <h3 className="text-xl font-bold leading-snug text-center">
                 {service.title}
               </h3>
 
