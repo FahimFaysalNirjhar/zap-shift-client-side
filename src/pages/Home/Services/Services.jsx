@@ -25,7 +25,7 @@ const Services = () => {
           {data.map((service, idx) => (
             <div
               key={idx}
-              className="rounded-2xl p-8 flex flex-col gap-4 justify-center items-center cursor-pointer bg-white hover:bg-[#C5E829]"
+              className="rounded-2xl p-8 flex flex-col gap-4 justify-center items-center cursor-pointer bg-white hover:bg-[#C5E829] active:bg-[#C5E829]"
             >
               {/* Icon */}
               <div
