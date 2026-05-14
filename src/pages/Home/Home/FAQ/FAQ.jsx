@@ -1,4 +1,6 @@
 import React from "react";
+import { ImArrowUpRight2 } from "react-icons/im";
+import { Link } from "react-router";
 
 const FAQ = () => {
   const faqs = [
@@ -37,7 +39,7 @@ const FAQ = () => {
           Frequently Asked Question (FAQ)
         </h1>
 
-        <p className="text-gray-500 mt-5 leading-relaxed">
+        <p className="text-[#606060] font-semibold mt-5 leading-relaxed">
           Enhance posture, mobility, and well-being effortlessly with Posture
           Pro. Achieve proper alignment, reduce pain, and strengthen your body
           with ease!
