@@ -1,4 +1,5 @@
 import React from "react";
+import SocialIcons from "../Auth/SocialIcons";
 
 const Register = () => {
   return (
@@ -57,10 +58,7 @@ const Register = () => {
           </p>
 
           <div className="divider">Or</div>
-
-          <button className="btn btn-outline w-full">
-            Register with Google
-          </button>
+          <SocialIcons />
         </fieldset>
       </form>
     </div>
