@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout/RootLayout";
 import Home from "../pages/Home/Home/Home";
 import Coverage from "../pages/Coverage/Coverage";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
+import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +19,20 @@ const router = createBrowserRouter([
           fetch(
             "https://raw.githubusercontent.com/FahimFaysalNirjhar/Warehouse-Data/refs/heads/main/warehouses.json",
           ).then((res) => res.json()),
+      },
+    ],
+  },
+  {
+    path: "/",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Register,
       },
     ],
   },

@@ -1,14 +1,17 @@
 import React from "react";
 import logo from "../../assets/logo.png";
+import { Link } from "react-router";
 
 const Logo = () => {
   return (
-    <div className="flex items-end ">
-      <img src={logo} alt="" />
-      <h1 className="text-[#303030] -ms-4.5 text-3xl font-extrabold">
-        ZapShift
-      </h1>
-    </div>
+    <Link to="/" className="inline-block">
+      <div className="flex items-end">
+        <img src={logo} alt="ZapShift Logo" />
+        <h1 className="text-[#303030] -ms-4.5 text-3xl font-extrabold">
+          ZapShift
+        </h1>
+      </div>
+    </Link>
   );
 };
 

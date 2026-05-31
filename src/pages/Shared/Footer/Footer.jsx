@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Footer = () => {
   const navStyle = ({ isActive }) =>
@@ -53,12 +53,14 @@ const Footer = () => {
         <aside className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-2">
             {/* ZapShift Z-bolt logo */}
-            <div className="flex items-end ">
-              <img src="/logo.png" alt="" />
-              <h1 className="text-white -ms-4.5 text-3xl font-extrabold">
-                ZapShift
-              </h1>
-            </div>
+            <Link to="/">
+              <div className="flex items-end ">
+                <img src="/logo.png" alt="" />
+                <h1 className="text-white -ms-4.5 text-3xl font-extrabold">
+                  ZapShift
+                </h1>
+              </div>
+            </Link>
           </div>
 
           <p className="text-neutral-content/60 text-sm max-w-sm text-center leading-relaxed">
