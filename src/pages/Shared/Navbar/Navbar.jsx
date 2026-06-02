@@ -1,13 +1,24 @@
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
-import { Link, Links, NavLink } from "react-router";
+import { Link, Links, NavLink, useNavigate } from "react-router";
 import { ImArrowUpRight2 } from "react-icons/im";
+import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
   const navStyle = ({ isActive }) =>
     isActive
       ? "underline decoration-primary decoration-4 underline-offset-8 font-bold text-black"
       : "text-[#606060] text-base font-medium";
+
+  const { user, LogOut } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    LogOut().then(() => {
+      navigate("/login");
+    });
+  };
 
   const links = (
     <>
@@ -87,25 +98,43 @@ const Navbar = () => {
 
         {/* RIGHT: Sign In + Sign Up + Arrow */}
         <div className="navbar-end flex items-center gap-2">
-          {/* Sign In: hidden on mobile, shown sm+ */}
-          <Link
-            to="/login"
-            className="btn btn-outline border-[#DADADA] text-[#606060] font-bold hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]"
-          >
-            Sign In
-          </Link>
+          {user ? (
+            <>
+              <img
+                src={user?.photoURL}
+                alt={user?.displayName || "User"}
+                className="w-10 h-10 rounded-full object-cover border"
+              />
 
-          {/* Sign Up + Arrow */}
-          <Link to="/register">
-            <div className="flex items-center">
-              <a className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs border-0 sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0 hover:bg-[#0F172A] hover:text-white">
-                Sign Up
-              </a>
-              <a className="bg-[#1E1E1E] rounded-full flex items-center justify-center p-2 sm:p-[10px] shrink-0">
-                <ImArrowUpRight2 className="text-primary text-xs sm:text-sm stroke-[0.5]" />
-              </a>
-            </div>
-          </Link>
+              <button
+                onClick={handleSignOut}
+                className="btn btn-outline border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="btn btn-outline border-[#DADADA] text-[#606060] font-bold hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]"
+              >
+                Sign In
+              </Link>
+
+              <Link to="/register">
+                <div className="flex items-center">
+                  <button className="btn bg-primary text-[#1F1F1F] font-bold rounded text-xs border-0 sm:text-sm px-3 sm:px-4 h-9 sm:h-10 min-h-0 hover:bg-[#0F172A] hover:text-white">
+                    Sign Up
+                  </button>
+
+                  <div className="bg-[#1E1E1E] rounded-full flex items-center justify-center p-2 sm:p-[10px] shrink-0">
+                    <ImArrowUpRight2 className="text-primary text-xs sm:text-sm stroke-[0.5]" />
+                  </div>
+                </div>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

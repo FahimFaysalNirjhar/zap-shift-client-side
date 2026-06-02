@@ -1,9 +1,25 @@
 import React from "react";
+import useAuth from "../../Hooks/useAuth";
 
 const SocialIcons = () => {
+  const { googleLogin } = useAuth();
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
-      <button className="btn w-full bg-white text-black border-[#e5e5e5] hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200">
+      <button
+        onClick={handleGoogleLogin}
+        className="btn w-full bg-white text-black border-[#e5e5e5] hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200"
+      >
         <svg
           aria-label="Google logo"
           width="24"
@@ -31,7 +47,7 @@ const SocialIcons = () => {
             ></path>
           </g>
         </svg>
-        Login with Google
+        Continue with Google
       </button>
     </div>
   );

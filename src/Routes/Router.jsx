@@ -5,11 +5,13 @@ import Coverage from "../pages/Coverage/Coverage";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
+import Loading from "../components/Loading/Loading";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    hydrateFallbackElement: <Loading />,
     children: [
       { index: true, Component: Home },
       {
