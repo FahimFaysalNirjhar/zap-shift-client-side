@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
@@ -21,6 +22,11 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, profile);
   };
 
+  const signIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -37,6 +43,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     user,
     loading,
+    signIn,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
