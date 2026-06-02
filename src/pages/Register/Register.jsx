@@ -1,13 +1,20 @@
 import React from "react";
 import SocialIcons from "../Auth/SocialIcons";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const handleRegistration = (data) => {
+    console.log(data);
+  };
   return (
     <div>
-      <form
-        action="
-    "
-      >
+      <form onSubmit={handleSubmit(handleRegistration)}>
         <fieldset className="fieldset w-full">
           {/* Profile Photo Upload */}
           <div className="flex justify-start mb-4">
@@ -30,21 +37,58 @@ const Register = () => {
               </div>
             </label>
 
-            <input id="photo" type="file" accept="image/*" className="hidden" />
+            <input
+              id="photo"
+              {...register("photo", { required: true })}
+              type="file"
+              accept="image/*"
+              className="hidden"
+            />
+            {errors.photo?.type === "required" && (
+              <p className="text-[#c1121f] text-sm">Please upload a photo.</p>
+            )}
           </div>
 
           <label className="label font-extrabold">Name</label>
-          <input type="text" className="input w-full" placeholder="Name" />
+          <input
+            type="text"
+            {...register("name", { required: true })}
+            className="input w-full"
+            placeholder="Name"
+          />
+          {errors.name?.type === "required" && (
+            <p className="text-[#c1121f] text-sm">Name is required</p>
+          )}
 
           <label className="label mt-2 font-extrabold">Email</label>
-          <input type="email" className="input w-full" placeholder="Email" />
+          <input
+            type="email"
+            {...register("email", { required: true })}
+            className="input w-full"
+            placeholder="Email"
+          />
+          {errors.email?.type === "required" && (
+            <p className="text-[#c1121f] text-sm">Email is required</p>
+          )}
 
           <label className="label mt-2 font-extrabold">Password</label>
           <input
             type="password"
             className="input w-full"
             placeholder="Password"
+            {...register("password", {
+              required: "Password is required",
+              pattern: {
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()_+\-=\[\]{};':"\\|,.<>\/~`])[A-Za-z\d@$!%*?&^#()_+\-=\[\]{};':"\\|,.<>\/~`]{6,}$/,
+                message:
+                  "Password must be at least 6 characters long and contain uppercase, lowercase, number, and special character",
+              },
+            })}
           />
+          {errors.password && (
+            <p className="text-[#c1121f] text-sm">{errors.password.message}</p>
+          )}
 
           <button className="btn mt-4 bg-lime-400 border-none text-black hover:bg-lime-500">
             Register
