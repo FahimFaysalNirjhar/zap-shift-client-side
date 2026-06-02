@@ -3,6 +3,7 @@ import SocialIcons from "../Auth/SocialIcons";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router";
 
 const Login = () => {
   const {
@@ -12,6 +13,8 @@ const Login = () => {
   } = useForm();
 
   const { signIn } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogin = (data) => {
     signIn(data.email, data.password)
@@ -28,6 +31,7 @@ const Login = () => {
             timer: 2500,
           });
         }
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         alert(error);

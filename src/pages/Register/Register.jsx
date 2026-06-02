@@ -5,6 +5,7 @@ import useAuth from "../../Hooks/useAuth";
 import { sendEmailVerification } from "firebase/auth";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const {
@@ -14,6 +15,9 @@ const Register = () => {
   } = useForm();
 
   const { createUser, updateUserProfile } = useAuth();
+  const location = useLocation();
+
+  const navigate = useNavigate();
 
   const handleRegistration = (data) => {
     console.log(data);
@@ -48,6 +52,7 @@ const Register = () => {
           updateUserProfile(userProfile)
             .then(() => {
               console.log("User profile updated");
+              navigate(location?.state || "/login");
             })
             .catch((error) => {
               console.log(error);
@@ -142,9 +147,13 @@ const Register = () => {
 
           <p className="text-center mt-4 text-gray-500">
             Already have an account?{" "}
-            <a href="/login" className="text-amber-500 font-bold">
+            <Link
+              to="/login"
+              state={location?.state}
+              className="text-amber-500 font-bold"
+            >
               Login
-            </a>
+            </Link>
           </p>
 
           <div className="divider">Or</div>
