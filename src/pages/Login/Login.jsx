@@ -3,7 +3,7 @@ import SocialIcons from "../Auth/SocialIcons";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Login = () => {
   const {
@@ -34,7 +34,11 @@ const Login = () => {
         navigate(location?.state || "/");
       })
       .catch((error) => {
-        alert(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
       });
   };
 
@@ -78,9 +82,13 @@ const Login = () => {
 
           <p className="text-center mt-4 text-gray-500">
             Don't have an account?{" "}
-            <a href="/register" className="text-amber-500 font-bold">
+            <Link
+              state={location?.state}
+              to="/register"
+              className="text-amber-500 font-bold"
+            >
               Register
-            </a>
+            </Link>
           </p>
 
           <div className="divider">Or</div>

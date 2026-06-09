@@ -14,7 +14,7 @@ const Register = () => {
     handleSubmit,
   } = useForm();
 
-  const { createUser, updateUserProfile } = useAuth();
+  const { createUser, updateUserProfile, LogOut } = useAuth();
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -52,15 +52,24 @@ const Register = () => {
           updateUserProfile(userProfile)
             .then(() => {
               console.log("User profile updated");
+              LogOut();
               navigate(location?.state || "/login");
             })
             .catch((error) => {
-              console.log(error);
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.message,
+              });
             });
         });
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
       });
   };
   return (

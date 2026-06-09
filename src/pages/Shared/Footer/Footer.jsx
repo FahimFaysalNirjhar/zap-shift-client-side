@@ -22,6 +22,12 @@ const Footer = () => {
       </li>
 
       <li>
+        <NavLink to="/sendParcel" className={navStyle}>
+          Send Parcel
+        </NavLink>
+      </li>
+
+      <li>
         <NavLink to="/about" className={navStyle}>
           About Us
         </NavLink>
