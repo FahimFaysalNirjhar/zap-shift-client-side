@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 
 const SendParcel = () => {
   const {
@@ -13,6 +14,8 @@ const SendParcel = () => {
   } = useForm();
 
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  console.log(user);
 
   const serviceCenters = useLoaderData();
 
@@ -49,6 +52,13 @@ const SendParcel = () => {
         cost = minimunCost + extraCost;
       }
     }
+
+    const parcelData = {
+      ...data,
+      cost,
+      creation_date: new Date().toISOString(),
+    };
+
     Swal.fire({
       title: "Confirm Parcel",
       text: `Are you sure you want to proceed with this parcel? The delivery cost is ৳${cost}.`,
@@ -56,10 +66,10 @@ const SendParcel = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, Confirm",
     }).then((result) => {
       if (result.isConfirmed)
-        axiosSecure.post("/parcels", data).then((res) => {
+        axiosSecure.post("/parcels", parcelData).then((res) => {
           console.log("after parcel saved to database", res);
         });
 
@@ -163,11 +173,29 @@ const SendParcel = () => {
                     type="text"
                     className="input input-bordered w-full"
                     placeholder="Sender Name"
+                    defaultValue={user?.displayName}
                     {...register("senderName", { required: true })}
                   />
                   {errors.senderName?.type === "required" && (
                     <p className="text-[#c1121f] text-sm">
                       Sender Name is required
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <label className="label text-sm font-medium text-gray-700 mb-1 block">
+                    Sender Email
+                  </label>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    placeholder="Sender Email"
+                    defaultValue={user?.email}
+                    {...register("senderEmail", { required: true })}
+                  />
+                  {errors.senderEmail?.type === "required" && (
+                    <p className="text-[#c1121f] text-sm">
+                      Sender Email is required
                     </p>
                   )}
                 </div>
@@ -283,6 +311,22 @@ const SendParcel = () => {
                   {errors.receiverName?.type === "required" && (
                     <p className="text-[#c1121f] text-sm">
                       Receiver Name is required
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <label className="label text-sm font-medium text-gray-700 mb-1 block">
+                    Receiver Email
+                  </label>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    placeholder="Receiver Email"
+                    {...register("receiverEmail", { required: true })}
+                  />
+                  {errors.receiverName?.type === "required" && (
+                    <p className="text-[#c1121f] text-sm">
+                      Receiver Email is required
                     </p>
                   )}
                 </div>
