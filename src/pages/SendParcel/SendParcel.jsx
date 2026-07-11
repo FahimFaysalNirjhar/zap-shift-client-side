@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const {
@@ -9,6 +11,8 @@ const SendParcel = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const axiosSecure = useAxiosSecure();
 
   const serviceCenters = useLoaderData();
 
@@ -23,6 +27,48 @@ const SendParcel = () => {
 
   const handleSendParcel = (data) => {
     console.log(data);
+
+    const isDocument = data.parcelType === "document";
+    const isSameDistrice = data.senderDistric === data.receiverDistrict;
+    const parcelWeight = parseFloat(data.parcelWeight);
+
+    let cost = 0;
+
+    if (isDocument) {
+      cost = isSameDistrice ? 60 : 80;
+    } else {
+      if (parcelWeight <= 3) {
+        cost = isSameDistrice ? 110 : 150;
+      } else {
+        const minimunCost = isSameDistrice ? 110 : 150;
+        const extraWeight = parcelWeight - 3;
+        const extraCost = isSameDistrice
+          ? extraWeight * 40
+          : extraWeight * 40 + 40;
+
+        cost = minimunCost + extraCost;
+      }
+    }
+    Swal.fire({
+      title: "Confirm Parcel",
+      text: `Are you sure you want to proceed with this parcel? The delivery cost is ৳${cost}.`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed)
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log("after parcel saved to database", res);
+        });
+
+      // Swal.fire({
+      //   title: "Deleted!",
+      //   text: "Your file has been deleted.",
+      //   icon: "success",
+      // });
+    });
   };
 
   const districtsByRegion = (region) => {
