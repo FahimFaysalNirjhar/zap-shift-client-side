@@ -51,11 +51,13 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
-        <NavLink to="/dashboard/parcels" className={navStyle}>
-          My Parcels
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard/parcels" className={navStyle}>
+            My Parcels
+          </NavLink>
+        </li>
+      )}
 
       <li>
         <NavLink to="/contact" className={navStyle}>

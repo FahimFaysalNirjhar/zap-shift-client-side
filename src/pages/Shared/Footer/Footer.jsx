@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
 
 const Footer = () => {
+  const { user } = useAuth();
   const navStyle = ({ isActive }) =>
     isActive
       ? "underline decoration-primary decoration-4 underline-offset-8 font-bold text-white"
@@ -39,11 +41,13 @@ const Footer = () => {
         </NavLink>
       </li>
 
-      <li>
-        <NavLink to="/dashboard/parcels" className={navStyle}>
-          My Parcels
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard/parcels" className={navStyle}>
+            My Parcels
+          </NavLink>
+        </li>
+      )}
 
       <li>
         <NavLink to="/contact" className={navStyle}>
