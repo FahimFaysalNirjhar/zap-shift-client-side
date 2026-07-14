@@ -1,58 +1,61 @@
 import React, { useState } from "react";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 // --- Sample data shaped exactly like your API response ---
 // Swap this for a TanStack Query / fetch call to
 // GET /parcels?email=<user email> once wired to the backend.
-const sampleParcels = [
-  {
-    _id: "6a5256a27486546a0956c026",
-    parcelType: "non-document",
-    parcelName: "mango",
-    parcelWeight: "24",
-    senderName: "Fahim Faysal",
-    senderEmail: "fahimfaysal1997@gmail.com",
-    senderPhoneNumber: "0170000114",
-    senderRegion: "Rangpur",
-    senderDistrict: "Rangpur",
-    senderAddress: "Dhaka",
-    pickUpInstruction: "pickup test Instruction",
-    receiverName: "Nesad",
-    receiverEmail: "nesadIslam6606@gmail.com",
-    receiverPhoneNumber: "0170001124",
-    receiverRegion: "Rajshahi",
-    receiverDistrict: "Rajshahi",
-    receiverAddress: "Dhaka",
-    deliveryInstruction: "Delivery test Instruction",
-    cost: 1030,
-    isPaid: true,
-    status: "in-transit",
-    creation_date: "2026-07-11T14:38:44.664Z",
-  },
-  {
-    _id: "6a5256a27486546a0956c027",
-    parcelType: "document",
-    parcelName: "Land papers",
-    parcelWeight: "0.5",
-    senderName: "Fahim Faysal",
-    senderEmail: "fahimfaysal1997@gmail.com",
-    senderPhoneNumber: "0170000114",
-    senderRegion: "Rangpur",
-    senderDistrict: "Rangpur",
-    senderAddress: "Dhaka",
-    pickUpInstruction: "",
-    receiverName: "Shakil",
-    receiverEmail: "shakil@example.com",
-    receiverPhoneNumber: "01773689877",
-    receiverRegion: "Panchagarh",
-    receiverDistrict: "Panchagarh Sadar",
-    receiverAddress: "Lalmatia",
-    deliveryInstruction: "",
-    cost: 121,
-    isPaid: false,
-    status: "pending",
-    creation_date: "2026-07-09T09:12:10.000Z",
-  },
-];
+// const sampleParcels = [
+//   {
+//     _id: "6a5256a27486546a0956c026",
+//     parcelType: "non-document",
+//     parcelName: "mango",
+//     parcelWeight: "24",
+//     senderName: "Fahim Faysal",
+//     senderEmail: "fahimfaysal1997@gmail.com",
+//     senderPhoneNumber: "0170000114",
+//     senderRegion: "Rangpur",
+//     senderDistrict: "Rangpur",
+//     senderAddress: "Dhaka",
+//     pickUpInstruction: "pickup test Instruction",
+//     receiverName: "Nesad",
+//     receiverEmail: "nesadIslam6606@gmail.com",
+//     receiverPhoneNumber: "0170001124",
+//     receiverRegion: "Rajshahi",
+//     receiverDistrict: "Rajshahi",
+//     receiverAddress: "Dhaka",
+//     deliveryInstruction: "Delivery test Instruction",
+//     cost: 1030,
+//     isPaid: true,
+//     status: "in-transit",
+//     creation_date: "2026-07-11T14:38:44.664Z",
+//   },
+//   {
+//     _id: "6a5256a27486546a0956c027",
+//     parcelType: "document",
+//     parcelName: "Land papers",
+//     parcelWeight: "0.5",
+//     senderName: "Fahim Faysal",
+//     senderEmail: "fahimfaysal1997@gmail.com",
+//     senderPhoneNumber: "0170000114",
+//     senderRegion: "Rangpur",
+//     senderDistrict: "Rangpur",
+//     senderAddress: "Dhaka",
+//     pickUpInstruction: "",
+//     receiverName: "Shakil",
+//     receiverEmail: "shakil@example.com",
+//     receiverPhoneNumber: "01773689877",
+//     receiverRegion: "Panchagarh",
+//     receiverDistrict: "Panchagarh Sadar",
+//     receiverAddress: "Lalmatia",
+//     deliveryInstruction: "",
+//     cost: 121,
+//     isPaid: false,
+//     status: "pending",
+//     creation_date: "2026-07-09T09:12:10.000Z",
+//   },
+// ];
 
 // Icon set kept in the same stroke/tabler style as DashboardLayout
 const Icon = {
@@ -163,9 +166,23 @@ const formatDate = (iso) =>
   });
 
 const MyParcels = () => {
-  const [parcels, setParcels] = useState(sampleParcels);
+  // const [parcels, setParcels] = useState(sampleParcels);
   const [viewing, setViewing] = useState(null);
   const [deleting, setDeleting] = useState(null);
+
+  const { user } = useAuth();
+
+  const axiosSecure = useAxiosSecure();
+
+  const { data: parcels = [] } = useQuery({
+    queryKey: ["myParcels", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
+      return res.data;
+    },
+  });
+
+  console.log(parcels);
 
   const stats = [
     {
@@ -252,7 +269,6 @@ const MyParcels = () => {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {parcels.map((p) => {
-                  const status = STATUS_META[p.status] ?? STATUS_META.pending;
                   return (
                     <tr key={p._id} className="hover:bg-gray-50/60">
                       <td className="px-4 sm:px-6 py-4">

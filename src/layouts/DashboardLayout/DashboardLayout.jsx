@@ -8,24 +8,24 @@ const NAV_ITEMS = [
   {
     section: null,
     links: [
-      { to: "/dashboard", label: "Dashboard", end: true, icon: "layout" },
       { to: "/dashboard/parcels", label: "My Parcels", icon: "box" },
-      { to: "/dashboard/invoices", label: "Invoices", icon: "receipt" },
-      { to: "/dashboard/stores", label: "Stores", icon: "store" },
-      { to: "/dashboard/pricing", label: "Pricing Plan", icon: "tag" },
-      { to: "/dashboard/coverage", label: "Coverage Area", icon: "map" },
+      // { to: "/dashboard", label: "Dashboard", end: true, icon: "layout" },
+      // { to: "/dashboard/invoices", label: "Invoices", icon: "receipt" },
+      // { to: "/dashboard/stores", label: "Stores", icon: "store" },
+      // { to: "/dashboard/pricing", label: "Pricing Plan", icon: "tag" },
+      // { to: "/dashboard/coverage", label: "Coverage Area", icon: "map" },
     ],
   },
   {
     section: "GENERAL",
     links: [
-      { to: "/dashboard/settings", label: "Settings", icon: "settings" },
-      {
-        to: "/dashboard/change-password",
-        label: "Change Password",
-        icon: "lock",
-      },
-      { to: "/dashboard/help", label: "Help", icon: "help" },
+      // { to: "/dashboard/settings", label: "Settings", icon: "settings" },
+      // {
+      //   to: "/dashboard/change-password",
+      //   label: "Change Password",
+      //   icon: "lock",
+      // },
+      // { to: "/dashboard/help", label: "Help", icon: "help" },
     ],
   },
 ];
