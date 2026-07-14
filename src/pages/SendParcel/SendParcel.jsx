@@ -145,11 +145,19 @@ const SendParcel = () => {
                 type="number"
                 className="input input-bordered w-full"
                 placeholder="Parcel Weight (KG)"
-                {...register("parcelWeight", { required: true })}
+                step="0.01"
+                min="0"
+                {...register("parcelWeight", {
+                  required: "Please enter the parcel weight",
+                  min: {
+                    value: 0,
+                    message: "Parcel weight must be at least 0.12 KG",
+                  },
+                })}
               />
-              {errors.parcelName?.type === "required" && (
+              {errors.parcelWeight && (
                 <p className="text-[#c1121f] text-sm">
-                  Please enter the parcel weight
+                  {errors.parcelWeight.message}
                 </p>
               )}
             </div>

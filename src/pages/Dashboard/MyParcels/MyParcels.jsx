@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 // --- Sample data shaped exactly like your API response ---
 // Swap this for a TanStack Query / fetch call to
@@ -166,7 +167,7 @@ const formatDate = (iso) =>
   });
 
 const MyParcels = () => {
-  // const [parcels, setParcels] = useState(sampleParcels);
+  //  const [parcels, setParcels] = useState(parcels);
   const [viewing, setViewing] = useState(null);
   const [deleting, setDeleting] = useState(null);
 
@@ -181,8 +182,6 @@ const MyParcels = () => {
       return res.data;
     },
   });
-
-  console.log(parcels);
 
   const stats = [
     {
@@ -203,10 +202,19 @@ const MyParcels = () => {
     },
   ];
 
-  const handleDeleteConfirm = () => {
-    setParcels((prev) => prev.filter((p) => p._id !== deleting._id));
+  const handleDeleteConfirm = (id) => {
+    console.log(id);
     setDeleting(null);
     // TODO: call DELETE /parcels/:id here, then refetch or drop from cache
+    axiosSecure.delete(`http://localhost:5000/parcels/${id}`).then((res) => {
+      if (res.data.deletedCount) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your parcel request has been deleted successfully. ✅",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -440,7 +448,7 @@ const MyParcels = () => {
                 Cancel
               </button>
               <button
-                onClick={handleDeleteConfirm}
+                onClick={() => handleDeleteConfirm(deleting._id)}
                 className="btn flex-1 bg-rose-600 hover:bg-rose-700 text-white border-0"
               >
                 Delete
