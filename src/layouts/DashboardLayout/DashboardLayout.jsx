@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import Logo from "../../components/Logo/Logo";
 import useAuth from "../../Hooks/useAuth";
 
@@ -7,7 +7,10 @@ import useAuth from "../../Hooks/useAuth";
 const NAV_ITEMS = [
   {
     section: null,
-    links: [{ to: "/dashboard/parcels", label: "My Parcels", icon: "box" }],
+    links: [
+      { to: "/dashboard/parcels", label: "My Parcels", icon: "box" },
+      // { to: "/dashboard/payment", label: "Payment", icon: "receipt" },
+    ],
   },
   {
     section: "GENERAL",
@@ -37,6 +40,13 @@ const ICONS = {
       <path d="M12 12l8 -4.5" />
       <path d="M12 12v9" />
       <path d="M12 12l-8 -4.5" />
+    </>,
+  ),
+  receipt: strokeIcon(
+    <>
+      <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2z" />
+      <path d="M9 8h6" />
+      <path d="M9 12h6" />
     </>,
   ),
   logout: strokeIcon(

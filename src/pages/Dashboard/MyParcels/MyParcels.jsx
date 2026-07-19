@@ -3,60 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-
-// --- Sample data shaped exactly like your API response ---
-// Swap this for a TanStack Query / fetch call to
-// GET /parcels?email=<user email> once wired to the backend.
-// const sampleParcels = [
-//   {
-//     _id: "6a5256a27486546a0956c026",
-//     parcelType: "non-document",
-//     parcelName: "mango",
-//     parcelWeight: "24",
-//     senderName: "Fahim Faysal",
-//     senderEmail: "fahimfaysal1997@gmail.com",
-//     senderPhoneNumber: "0170000114",
-//     senderRegion: "Rangpur",
-//     senderDistrict: "Rangpur",
-//     senderAddress: "Dhaka",
-//     pickUpInstruction: "pickup test Instruction",
-//     receiverName: "Nesad",
-//     receiverEmail: "nesadIslam6606@gmail.com",
-//     receiverPhoneNumber: "0170001124",
-//     receiverRegion: "Rajshahi",
-//     receiverDistrict: "Rajshahi",
-//     receiverAddress: "Dhaka",
-//     deliveryInstruction: "Delivery test Instruction",
-//     cost: 1030,
-//     isPaid: true,
-//     status: "in-transit",
-//     creation_date: "2026-07-11T14:38:44.664Z",
-//   },
-//   {
-//     _id: "6a5256a27486546a0956c027",
-//     parcelType: "document",
-//     parcelName: "Land papers",
-//     parcelWeight: "0.5",
-//     senderName: "Fahim Faysal",
-//     senderEmail: "fahimfaysal1997@gmail.com",
-//     senderPhoneNumber: "0170000114",
-//     senderRegion: "Rangpur",
-//     senderDistrict: "Rangpur",
-//     senderAddress: "Dhaka",
-//     pickUpInstruction: "",
-//     receiverName: "Shakil",
-//     receiverEmail: "shakil@example.com",
-//     receiverPhoneNumber: "01773689877",
-//     receiverRegion: "Panchagarh",
-//     receiverDistrict: "Panchagarh Sadar",
-//     receiverAddress: "Lalmatia",
-//     deliveryInstruction: "",
-//     cost: 121,
-//     isPaid: false,
-//     status: "pending",
-//     creation_date: "2026-07-09T09:12:10.000Z",
-//   },
-// ];
+import { useNavigate } from "react-router";
 
 // Icon set kept in the same stroke/tabler style as DashboardLayout
 const Icon = {
@@ -167,20 +114,20 @@ const formatDate = (iso) =>
   });
 
 const MyParcels = () => {
-  //  const [parcels, setParcels] = useState(parcels);
   const [viewing, setViewing] = useState(null);
   const [deleting, setDeleting] = useState(null);
 
   const { user } = useAuth();
-
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
-  const { data: parcels = [] } = useQuery({
+  const { data: parcels = [], refetch } = useQuery({
     queryKey: ["myParcels", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
       return res.data;
     },
+    enabled: !!user?.email,
   });
 
   const stats = [
@@ -203,10 +150,9 @@ const MyParcels = () => {
   ];
 
   const handleDeleteConfirm = (id) => {
-    console.log(id);
     setDeleting(null);
-    // TODO: call DELETE /parcels/:id here, then refetch or drop from cache
     axiosSecure.delete(`http://localhost:5000/parcels/${id}`).then((res) => {
+      refetch();
       if (res.data.deletedCount) {
         Swal.fire({
           title: "Deleted!",
@@ -215,6 +161,10 @@ const MyParcels = () => {
         });
       }
     });
+  };
+
+  const handlePayClick = (parcel) => {
+    navigate(`/dashboard/payment/${parcel._id}`);
   };
 
   return (
@@ -270,6 +220,7 @@ const MyParcels = () => {
                   <th className="px-4 sm:px-6 py-3 font-medium hidden lg:table-cell">
                     Date
                   </th>
+                  <th className="px-4 sm:px-6 py-3 font-medium">Payment</th>
                   <th className="px-4 sm:px-6 py-3 font-medium text-right">
                     Action
                   </th>
@@ -304,6 +255,30 @@ const MyParcels = () => {
                         <p className="text-sm font-medium text-gray-700">
                           {formatDate(p.creation_date)}
                         </p>
+                      </td>
+                      <td className="px-4 sm:px-6 py-4">
+                        <div className="flex flex-col items-start gap-1.5">
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                              p.isPaid
+                                ? "bg-emerald-50 text-emerald-700"
+                                : "bg-amber-50 text-amber-700"
+                            }`}
+                          >
+                            {p.isPaid ? "Paid" : "Unpaid"}
+                          </span>
+                          <button
+                            onClick={() => handlePayClick(p)}
+                            disabled={p.isPaid}
+                            className={`btn btn-xs ${
+                              p.isPaid
+                                ? "btn-disabled bg-gray-200 text-gray-400 cursor-not-allowed"
+                                : "bg-[#c7e94f] text-[#113a3a] hover:bg-[#b4d63f] border-0"
+                            }`}
+                          >
+                            {p.isPaid ? "Paid" : "Pay Now"}
+                          </button>
+                        </div>
                       </td>
                       <td className="px-4 sm:px-6 py-4">
                         <div className="flex items-center justify-end gap-2">
