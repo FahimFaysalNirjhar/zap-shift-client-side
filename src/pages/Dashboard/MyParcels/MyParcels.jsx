@@ -145,7 +145,9 @@ const MyParcels = () => {
     },
     {
       label: "Total Cost",
-      value: `৳${parcels.reduce((sum, p) => sum + Number(p.cost || 0), 0)}`,
+      value: `৳${parcels
+        .reduce((sum, p) => sum + Number(p.cost || 0), 0)
+        .toLocaleString("en-US", { maximumFractionDigits: 2 })}`,
     },
   ];
 
@@ -270,7 +272,7 @@ const MyParcels = () => {
                           <button
                             onClick={() => handlePayClick(p)}
                             disabled={p.isPaid}
-                            className={`btn btn-xs ${
+                            className={`btn btn-xs sm:btn-sm whitespace-nowrap px-2 sm:px-3 text-[11px] sm:text-xs ${
                               p.isPaid
                                 ? "btn-disabled bg-gray-200 text-gray-400 cursor-not-allowed"
                                 : "bg-[#c7e94f] text-[#113a3a] hover:bg-[#b4d63f] border-0"
