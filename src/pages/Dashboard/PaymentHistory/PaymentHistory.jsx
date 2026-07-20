@@ -56,7 +56,7 @@ const PaymentHistory = () => {
                   <td className="text-sm text-gray-500">
                     {payment.trackingId}
                   </td>
-                  <td className="text-xs text-gray-400 truncate max-w-[140px]">
+                  <td className="text-xs text-gray-400 truncate max-w-35">
                     {payment.transationId}
                   </td>
                   <td className="font-semibold">
