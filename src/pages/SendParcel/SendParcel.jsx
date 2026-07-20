@@ -54,9 +54,11 @@ const SendParcel = () => {
       }
     }
 
+    const roundedCost = Math.round(cost);
+
     const parcelData = {
       ...data,
-      cost,
+      cost: roundedCost,
       creation_date: new Date().toISOString(),
     };
 

@@ -9,7 +9,11 @@ const NAV_ITEMS = [
     section: null,
     links: [
       { to: "/dashboard/parcels", label: "My Parcels", icon: "box" },
-      // { to: "/dashboard/payment", label: "Payment", icon: "receipt" },
+      {
+        to: "/dashboard/payment-history",
+        label: "Payment History",
+        icon: "receipt",
+      },
     ],
   },
   {
