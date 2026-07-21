@@ -110,6 +110,7 @@ const Navbar = () => {
               <img
                 src={user?.photoURL}
                 alt={user?.displayName || "User"}
+                referrerPolicy="no-referrer"
                 className="w-10 h-10 rounded-full object-cover border"
               />
 

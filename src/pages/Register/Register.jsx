@@ -6,6 +6,7 @@ import { sendEmailVerification } from "firebase/auth";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Register = () => {
   const {
@@ -18,6 +19,7 @@ const Register = () => {
   const location = useLocation();
 
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleRegistration = (data) => {
     console.log(data);
@@ -44,6 +46,16 @@ const Register = () => {
         axios.post(image_API_URL, formData).then((res) => {
           console.log("after image upload", res.data.data.url);
 
+          const userInfo = {
+            email: data.email,
+            displayName: data.name,
+            photoURL: res.data.data.url,
+          };
+
+          axiosSecure.post("/users", userInfo).then((res) => {
+            console.log("user created in database", res.data);
+          });
+
           const userProfile = {
             displayName: data.name,
             photoURL: res.data.data.url,
@@ -52,6 +64,7 @@ const Register = () => {
           updateUserProfile(userProfile)
             .then(() => {
               console.log("User profile updated");
+
               LogOut();
               navigate(location?.state || "/login");
             })
