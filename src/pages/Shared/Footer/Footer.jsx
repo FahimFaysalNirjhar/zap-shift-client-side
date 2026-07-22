@@ -50,8 +50,8 @@ const Footer = () => {
       )}
 
       <li>
-        <NavLink to="/contact" className={navStyle}>
-          Contact
+        <NavLink to="/rider" className={navStyle}>
+          Be a Rider
         </NavLink>
       </li>
     </>

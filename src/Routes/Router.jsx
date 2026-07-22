@@ -14,6 +14,7 @@ import Payment from "../pages/Dashboard/Payments/Payment";
 import PaymentSuccess from "../pages/Dashboard/Payments/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Payments/PaymentCancel";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import Rider from "../pages/Rider/Rider";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,18 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SendParcel />
+          </PrivateRoute>
+        ),
+        loader: () =>
+          fetch(
+            "https://raw.githubusercontent.com/FahimFaysalNirjhar/Warehouse-Data/refs/heads/main/warehouses.json",
+          ).then((res) => res.json()),
+      },
+      {
+        path: "rider",
+        element: (
+          <PrivateRoute>
+            <Rider />
           </PrivateRoute>
         ),
         loader: () =>
