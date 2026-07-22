@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
 
 const statusStyles = {
   pending: "bg-amber-100 text-amber-700",
@@ -17,6 +18,7 @@ const TABS = [
 const ApproveRider = () => {
   const axiosSecure = useAxiosSecure();
   const [activeTab, setActiveTab] = useState("pending");
+  const { user } = useAuth();
 
   const {
     data: riders = [],
@@ -24,17 +26,18 @@ const ApproveRider = () => {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["riders", activeTab],
+    queryKey: ["riders", activeTab, user?.email],
+    enabled: !!user,
     queryFn: async () => {
       const result = await axiosSecure.get(`/riders?status=${activeTab}`);
       return result.data;
     },
   });
 
-  const updateRiderStatus = (id, status) => {
-    const updateInfo = { status: status };
+  const updateRiderStatus = (rider, status) => {
+    const updateInfo = { status: status, email: rider.riderEmail };
     axiosSecure
-      .patch(`/riders/${id}`, updateInfo)
+      .patch(`/riders/${rider._id}`, updateInfo)
       .then((res) => {
         if (res.data.modifiedCount) {
           const isAccepted = status === "accepted";
@@ -57,8 +60,8 @@ const ApproveRider = () => {
       });
   };
 
-  const handleAccept = (id) => updateRiderStatus(id, "accepted");
-  const handleReject = (id) => updateRiderStatus(id, "rejected");
+  const handleAccept = (rider) => updateRiderStatus(rider, "accepted");
+  const handleReject = (rider) => updateRiderStatus(rider, "rejected");
 
   const handleDelete = (id, name) => {
     Swal.fire({
@@ -189,13 +192,13 @@ const ApproveRider = () => {
                       {activeTab === "pending" && (
                         <>
                           <button
-                            onClick={() => handleAccept(rider._id)}
+                            onClick={() => handleAccept(rider)}
                             className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-600 disabled:opacity-50"
                           >
                             Accept
                           </button>
                           <button
-                            onClick={() => handleReject(rider._id)}
+                            onClick={() => handleReject(rider)}
                             className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-amber-600 disabled:opacity-50"
                           >
                             Reject
