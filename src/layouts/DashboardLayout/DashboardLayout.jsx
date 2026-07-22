@@ -14,6 +14,11 @@ const NAV_ITEMS = [
         label: "Payment History",
         icon: "receipt",
       },
+      {
+        to: "/dashboard/approve-rider",
+        label: "Approve Rider",
+        icon: "user-check",
+      },
     ],
   },
   {
@@ -53,6 +58,13 @@ const ICONS = {
       <path d="M9 12h6" />
     </>,
   ),
+  "user-check": strokeIcon(
+    <>
+      <path d="M8 7a4 4 0 1 0 0 8a4 4 0 0 0 0 -8z" />
+      <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+      <path d="M15 19l2 2l4 -4" />
+    </>,
+  ),
   logout: strokeIcon(
     <>
       <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
@@ -60,7 +72,6 @@ const ICONS = {
       <path d="M18 15l3 -3" />
     </>,
   ),
-  // New: sidebar-collapse icon (matches the panel icon in your screenshot)
   panel: strokeIcon(
     <>
       <rect x="3" y="3" width="18" height="18" rx="2" />
