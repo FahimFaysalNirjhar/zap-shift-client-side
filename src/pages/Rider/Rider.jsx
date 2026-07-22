@@ -1,53 +1,31 @@
-import React, { useState } from "react";
-
-const regions = [
-  "Dhaka",
-  "Chattogram",
-  "Khulna",
-  "Rajshahi",
-  "Barishal",
-  "Sylhet",
-  "Rangpur",
-  "Mymensingh",
-];
-
-const districtsByRegion = {
-  Dhaka: ["Dhaka", "Gazipur", "Narayanganj", "Tangail"],
-  Chattogram: ["Chattogram", "Cox's Bazar", "Comilla", "Feni"],
-  Khulna: ["Khulna", "Jessore", "Satkhira", "Bagerhat"],
-  Rajshahi: ["Rajshahi", "Bogura", "Pabna", "Natore"],
-  Barishal: ["Barishal", "Patuakhali", "Bhola", "Pirojpur"],
-  Sylhet: ["Sylhet", "Moulvibazar", "Habiganj", "Sunamganj"],
-  Rangpur: ["Rangpur", "Dinajpur", "Kurigram", "Lalmonirhat"],
-  Mymensingh: ["Mymensingh", "Jamalpur", "Netrokona", "Sherpur"],
-};
+import React from "react";
+import useAuth from "../../Hooks/useAuth";
+import { useForm, useWatch } from "react-hook-form";
+import { useLoaderData } from "react-router";
 
 const Rider = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    license: "",
-    email: "",
-    region: "",
-    district: "",
-    nid: "",
-    phone: "",
-    bikeModel: "",
-    bikeRegistration: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+  const { user } = useAuth();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-      // reset district if region changes
-      ...(name === "region" ? { district: "" } : {}),
-    }));
+  const serviceCenters = useLoaderData();
+  const regionsDuplicate = serviceCenters.map((c) => c.region);
+  const regions = [...new Set(regionsDuplicate)];
+
+  const riderRegion = useWatch({ control, name: "riderRegion" });
+
+  const districtsByRegion = (region) => {
+    const regionDistricts = serviceCenters.filter((c) => c.region === region);
+    const districts = regionDistricts.map((d) => d.district);
+    return districts;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Rider application submitted:", formData);
+  const handleBeRider = (data) => {
+    console.log(data);
     // TODO: wire this up to the backend
   };
 
@@ -77,21 +55,23 @@ const Rider = () => {
               Tell us about yourself
             </h2>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+            <form
+              onSubmit={handleSubmit(handleBeRider)}
+              className="mt-6 space-y-5"
+            >
               <div>
                 <label htmlFor="name" className={labelClasses}>
                   Your Name
                 </label>
                 <input
-                  id="name"
-                  name="name"
                   type="text"
                   placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
                   className={inputClasses}
-                  required
+                  {...register("riderName", { required: true })}
                 />
+                {errors.riderName?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">Name is required</p>
+                )}
               </div>
 
               <div>
@@ -99,15 +79,16 @@ const Rider = () => {
                   Driving License Number
                 </label>
                 <input
-                  id="license"
-                  name="license"
                   type="text"
                   placeholder="Driving License Number"
-                  value={formData.license}
-                  onChange={handleChange}
                   className={inputClasses}
-                  required
+                  {...register("licenseNumber", { required: true })}
                 />
+                {errors.licenseNumber?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">
+                    Driving License Number is required
+                  </p>
+                )}
               </div>
 
               <div>
@@ -115,15 +96,17 @@ const Rider = () => {
                   Your Email
                 </label>
                 <input
-                  id="email"
-                  name="email"
                   type="email"
                   placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  defaultValue={user?.email}
                   className={inputClasses}
-                  required
+                  {...register("riderEmail", { required: true })}
                 />
+                {errors.riderEmail?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">
+                    Your Email is required
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -132,12 +115,8 @@ const Rider = () => {
                     Your Region
                   </label>
                   <select
-                    id="region"
-                    name="region"
-                    value={formData.region}
-                    onChange={handleChange}
+                    {...register("riderRegion", { required: true })}
                     className={`${inputClasses} appearance-none`}
-                    required
                   >
                     <option value="" disabled>
                       Select your Region
@@ -148,6 +127,11 @@ const Rider = () => {
                       </option>
                     ))}
                   </select>
+                  {errors.riderRegion?.type === "required" && (
+                    <p className="text-[#c1121f] text-sm">
+                      Please select a region
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -155,24 +139,17 @@ const Rider = () => {
                     Your District
                   </label>
                   <select
-                    id="district"
-                    name="district"
-                    value={formData.district}
-                    onChange={handleChange}
-                    disabled={!formData.region}
+                    {...register("riderDistrict", { required: true })}
                     className={`${inputClasses} appearance-none disabled:cursor-not-allowed disabled:opacity-60`}
-                    required
                   >
                     <option value="" disabled>
                       Select your District
                     </option>
-                    {(districtsByRegion[formData.region] || []).map(
-                      (district) => (
-                        <option key={district} value={district}>
-                          {district}
-                        </option>
-                      ),
-                    )}
+                    {districtsByRegion(riderRegion).map((district) => (
+                      <option key={district} value={district}>
+                        {district}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -182,15 +159,16 @@ const Rider = () => {
                   NID No
                 </label>
                 <input
-                  id="nid"
-                  name="nid"
                   type="text"
                   placeholder="NID"
-                  value={formData.nid}
-                  onChange={handleChange}
                   className={inputClasses}
-                  required
+                  {...register("riderNid", { required: true })}
                 />
+                {errors.riderNid?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">
+                    Please provide the rider's NID Number.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -198,15 +176,16 @@ const Rider = () => {
                   Phone Number
                 </label>
                 <input
-                  id="phone"
-                  name="phone"
                   type="tel"
                   placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={handleChange}
                   className={inputClasses}
-                  required
+                  {...register("riderPhoneNumber", { required: true })}
                 />
+                {errors.riderPhoneNumber?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">
+                    Please provide the rider's Phone Number.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -214,15 +193,16 @@ const Rider = () => {
                   Bike Brand Model and Year
                 </label>
                 <input
-                  id="bikeModel"
-                  name="bikeModel"
                   type="text"
                   placeholder="Bike Brand Model and Year"
-                  value={formData.bikeModel}
-                  onChange={handleChange}
                   className={inputClasses}
-                  required
+                  {...register("bikeBrand", { required: true })}
                 />
+                {errors.bikeBrand?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">
+                    Please provide Bike Brand Model and Year.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -230,15 +210,16 @@ const Rider = () => {
                   Bike Registration Number
                 </label>
                 <input
-                  id="bikeRegistration"
-                  name="bikeRegistration"
                   type="text"
                   placeholder="Bike Registration Number"
-                  value={formData.bikeRegistration}
-                  onChange={handleChange}
                   className={inputClasses}
-                  required
+                  {...register("bikeRegistrationNumber", { required: true })}
                 />
+                {errors.bikeRegistrationNumber?.type === "required" && (
+                  <p className="text-[#c1121f] text-sm">
+                    Please provide the Bike Registration Numbe.
+                  </p>
+                )}
               </div>
 
               <button
