@@ -2,6 +2,8 @@ import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Rider = () => {
   const {
@@ -11,6 +13,7 @@ const Rider = () => {
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   const serviceCenters = useLoaderData();
   const regionsDuplicate = serviceCenters.map((c) => c.region);
@@ -26,7 +29,15 @@ const Rider = () => {
 
   const handleBeRider = (data) => {
     console.log(data);
-    // TODO: wire this up to the backend
+    axiosSecure.post("/riders", data).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "Rider Application Submitted",
+          text: "Your rider application has been submitted successfully. Our team will review your application and contact you within 3–5 business days.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   const inputClasses =
