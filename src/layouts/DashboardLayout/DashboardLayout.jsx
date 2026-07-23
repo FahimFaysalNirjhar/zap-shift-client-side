@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import Logo from "../../components/Logo/Logo";
 import useAuth from "../../Hooks/useAuth";
+import useRole from "../../Hooks/useRole";
 
 // Single source of truth for the sidebar — add/remove items here only.
 const NAV_ITEMS = [
   {
     section: null,
     links: [
-      { to: "/dashboard/parcels", label: "My Parcels", icon: "box" },
+      {
+        to: "/dashboard/parcels",
+        label: "My Parcels",
+        icon: "box",
+      },
       {
         to: "/dashboard/payment-history",
         label: "Payment History",
@@ -18,11 +23,13 @@ const NAV_ITEMS = [
         to: "/dashboard/approve-rider",
         label: "Approve Rider",
         icon: "user-check",
+        roles: ["admin"],
       },
       {
         to: "/dashboard/user-management",
         label: "User Management",
         icon: "users",
+        roles: ["admin"],
       },
     ],
   },
@@ -103,6 +110,9 @@ const navLinkClasses = ({ isActive }) =>
 
 const DashboardLayout = () => {
   const { user, LogOut } = useAuth();
+  const { role } = useRole();
+
+  console.log("role", role);
 
   // One state drives both: mobile overlay (translate) and desktop collapse (width)
   const [sidebarOpen, setSidebarOpen] = useState(
@@ -153,21 +163,23 @@ const DashboardLayout = () => {
                 </p>
               )}
               <ul className="menu w-full p-0 gap-1">
-                {group.links.map((link) => (
-                  <li key={link.to}>
-                    <NavLink
-                      to={link.to}
-                      end={link.end}
-                      onClick={() => {
-                        if (window.innerWidth < 1024) setSidebarOpen(false);
-                      }}
-                      className={navLinkClasses}
-                    >
-                      {ICONS[link.icon]}
-                      <span>{link.label}</span>
-                    </NavLink>
-                  </li>
-                ))}
+                {group.links
+                  .filter((link) => !link.roles || link.roles.includes(role))
+                  .map((link) => (
+                    <li key={link.to}>
+                      <NavLink
+                        to={link.to}
+                        end={link.end}
+                        onClick={() => {
+                          if (window.innerWidth < 1024) setSidebarOpen(false);
+                        }}
+                        className={navLinkClasses}
+                      >
+                        {ICONS[link.icon]}
+                        <span>{link.label}</span>
+                      </NavLink>
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}

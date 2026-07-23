@@ -117,7 +117,12 @@ const router = createBrowserRouter([
       },
       {
         path: "user-management",
-        Component: UserManagement,
+        // Component: UserManagement,
+        element: (
+          <AdminRoute>
+            <UserManagement />
+          </AdminRoute>
+        ),
       },
     ],
   },
