@@ -20,6 +20,12 @@ const NAV_ITEMS = [
         icon: "receipt",
       },
       {
+        to: "/dashboard/assigned-deliveries",
+        label: "Assigned Deliveries",
+        icon: "route",
+        roles: ["rider"],
+      },
+      {
         to: "/dashboard/approve-rider",
         label: "Approve Rider",
         icon: "user-check",
@@ -89,6 +95,14 @@ const ICONS = {
       <path d="M3 9h11v8" />
       <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
       <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    </>,
+  ),
+  route: strokeIcon(
+    <>
+      <path d="M9 6l6 12" />
+      <path d="M5 6h1a3 3 0 0 1 3 3v6a3 3 0 0 0 3 3h1" />
+      <circle cx="6" cy="6" r="2" />
+      <circle cx="18" cy="18" r="2" />
     </>,
   ),
   logout: strokeIcon(
