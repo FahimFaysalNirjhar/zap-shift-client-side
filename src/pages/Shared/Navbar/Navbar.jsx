@@ -95,7 +95,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl hidden md:flex">
+          <a className="btn btn-ghost text-xl hidden md:flex hover:bg-gray-100 active:bg-gray-100 border-0 p-6">
             <Logo />
           </a>
         </div>

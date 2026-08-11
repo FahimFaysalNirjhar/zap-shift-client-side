@@ -143,7 +143,7 @@ const UserManagement = () => {
                         />
                       </div>
                     </div>
-                    <span className="font-medium text-slate-900">
+                    <span className="font-medium text-slate-900 whitespace-nowrap">
                       {user.displayName || "Unnamed User"}
                     </span>
                   </div>

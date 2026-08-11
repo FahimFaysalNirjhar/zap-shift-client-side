@@ -199,7 +199,7 @@ const AssignRiders = () => {
           )}
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn bg-white text-gray-800 border border-gray-300 hover:bg-gray-100">
+              <button className="btn bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 active:bg-gray-100">
                 Close
               </button>
             </form>
@@ -279,7 +279,7 @@ const AssignRiders = () => {
 
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn bg-white text-gray-800 border border-gray-300 hover:bg-gray-100">
+              <button className="btn bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 active:bg-gray-100">
                 Close
               </button>
             </form>
