@@ -66,21 +66,29 @@ const AssignRiders = () => {
       .patch(`/parcels/${selectedParcel._id}`, riderInfo)
       .then((res) => {
         if (res.data.modifiedCount) {
-          parcelRefetch();
           riderModalRef.current.close();
+          parcelRefetch();
+
           Swal.fire({
-            title: "Rider Assigned!",
-            text: `${rider.riderName} has been assigned to this parcel.`,
+            toast: true,
+            position: "top-end",
             icon: "success",
-            confirmButtonText: "Okay",
+            title: `${rider.riderName} assigned successfully`,
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true,
           });
         }
       })
       .catch(() => {
         Swal.fire({
-          title: "Failed to assign rider",
-          text: "Please try again.",
+          toast: true,
+          position: "top-end",
           icon: "error",
+          title: "Failed to assign rider",
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
         });
       })
       .finally(() => setAssigningId(null));
@@ -166,37 +174,150 @@ const AssignRiders = () => {
         ref={detailsModalRef}
         className="modal modal-bottom sm:modal-middle"
       >
-        <div className="modal-box">
-          <h3 className="font-bold text-lg mb-4">Parcel Details</h3>
+        <div className="modal-box max-w-lg">
+          <h3 className="font-bold text-lg mb-1">Parcel Details</h3>
           {selectedParcel && (
-            <div className="space-y-2 text-sm">
-              <p>
-                <span className="font-semibold">Tracking ID:</span>{" "}
+            <>
+              <p className="text-xs font-mono text-base-content/60 mb-4">
                 {selectedParcel.trackingId}
               </p>
-              <p>
-                <span className="font-semibold">Sender:</span>{" "}
-                {selectedParcel.senderName} ({selectedParcel.senderDistrict})
-              </p>
-              <p>
-                <span className="font-semibold">Receiver:</span>{" "}
-                {selectedParcel.receiverName} ({selectedParcel.receiverDistrict}
-                )
-              </p>
-              <p>
-                <span className="font-semibold">Weight:</span>{" "}
-                {selectedParcel.weight ?? "N/A"} kg
-              </p>
-              <p>
-                <span className="font-semibold">Cost:</span> ৳
-                {selectedParcel.cost}
-              </p>
-              <p>
-                <span className="font-semibold">Status:</span>{" "}
-                {selectedParcel.deliveryStatus}
-              </p>
-            </div>
+
+              <div className="space-y-4 text-sm">
+                {/* Parcel Info */}
+                <div>
+                  <h4 className="font-semibold text-base-content/70 uppercase text-xs mb-2">
+                    Parcel Info
+                  </h4>
+                  <div className="grid grid-cols-2 gap-y-1">
+                    <span className="text-base-content/60">Type</span>
+                    <span className="capitalize">
+                      {selectedParcel.parcelType}
+                    </span>
+
+                    <span className="text-base-content/60">Name</span>
+                    <span>{selectedParcel.parcelName}</span>
+
+                    <span className="text-base-content/60">Weight</span>
+                    <span>{selectedParcel.parcelWeight} kg</span>
+
+                    <span className="text-base-content/60">Cost</span>
+                    <span>৳{selectedParcel.cost}</span>
+
+                    <span className="text-base-content/60">Paid</span>
+                    <span>
+                      <span
+                        className={`badge badge-sm ${
+                          selectedParcel.isPaid
+                            ? "badge-success"
+                            : "badge-error"
+                        }`}
+                      >
+                        {selectedParcel.isPaid ? "Paid" : "Unpaid"}
+                      </span>
+                    </span>
+
+                    <span className="text-base-content/60">Status</span>
+                    <span className="badge badge-warning badge-sm">
+                      {selectedParcel.deliveryStatus}
+                    </span>
+
+                    <span className="text-base-content/60">Created</span>
+                    <span>
+                      {new Date(selectedParcel.creation_date).toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="divider my-1" />
+
+                {/* Sender Info */}
+                <div>
+                  <h4 className="font-semibold text-base-content/70 uppercase text-xs mb-2">
+                    Sender
+                  </h4>
+                  <div className="grid grid-cols-2 gap-y-1">
+                    <span className="text-base-content/60">Name</span>
+                    <span>{selectedParcel.senderName}</span>
+
+                    <span className="text-base-content/60">Email</span>
+                    <span className="truncate">
+                      {selectedParcel.senderEmail}
+                    </span>
+
+                    <span className="text-base-content/60">Phone</span>
+                    <span>{selectedParcel.senderPhoneNumber}</span>
+
+                    <span className="text-base-content/60">Region</span>
+                    <span>{selectedParcel.senderRegion}</span>
+
+                    <span className="text-base-content/60">District</span>
+                    <span>{selectedParcel.senderDistrict}</span>
+
+                    <span className="text-base-content/60">Address</span>
+                    <span>{selectedParcel.senderAddress}</span>
+
+                    <span className="text-base-content/60">Instruction</span>
+                    <span>{selectedParcel.pickUpInstruction}</span>
+                  </div>
+                </div>
+
+                <div className="divider my-1" />
+
+                {/* Receiver Info */}
+                <div>
+                  <h4 className="font-semibold text-base-content/70 uppercase text-xs mb-2">
+                    Receiver
+                  </h4>
+                  <div className="grid grid-cols-2 gap-y-1">
+                    <span className="text-base-content/60">Name</span>
+                    <span>{selectedParcel.receiverName}</span>
+
+                    <span className="text-base-content/60">Email</span>
+                    <span className="truncate">
+                      {selectedParcel.receiverEmail}
+                    </span>
+
+                    <span className="text-base-content/60">Phone</span>
+                    <span>{selectedParcel.receiverPhoneNumber}</span>
+
+                    <span className="text-base-content/60">Region</span>
+                    <span>{selectedParcel.receiverRegion}</span>
+
+                    <span className="text-base-content/60">District</span>
+                    <span>{selectedParcel.receiverDistrict}</span>
+
+                    <span className="text-base-content/60">Address</span>
+                    <span>{selectedParcel.receiverAddress}</span>
+
+                    <span className="text-base-content/60">Instruction</span>
+                    <span>{selectedParcel.deliveryInstruction}</span>
+                  </div>
+                </div>
+
+                {/* Rider Info — only shows once assigned */}
+                {selectedParcel.riderName && (
+                  <>
+                    <div className="divider my-1" />
+                    <div>
+                      <h4 className="font-semibold text-base-content/70 uppercase text-xs mb-2">
+                        Assigned Rider
+                      </h4>
+                      <div className="grid grid-cols-2 gap-y-1">
+                        <span className="text-base-content/60">Name</span>
+                        <span>{selectedParcel.riderName}</span>
+
+                        <span className="text-base-content/60">Email</span>
+                        <span className="truncate">
+                          {selectedParcel.riderEmail}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
           )}
+
           <div className="modal-action">
             <form method="dialog">
               <button className="btn bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 active:bg-gray-100">
