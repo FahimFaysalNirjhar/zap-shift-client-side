@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
+import { FaEye } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 
@@ -8,6 +9,13 @@ const statusStyles = {
   pending: "bg-amber-100 text-amber-700",
   accepted: "bg-emerald-100 text-emerald-700",
   rejected: "bg-rose-100 text-rose-700",
+};
+
+const workStatusStyles = {
+  active: "bg-emerald-100 text-emerald-700",
+  available: "bg-sky-100 text-sky-700",
+  "on-delivery": "bg-amber-100 text-amber-700",
+  inactive: "bg-gray-100 text-gray-600",
 };
 
 const TABS = [
@@ -60,6 +68,33 @@ const ApproveRider = () => {
       });
   };
 
+  // NEW: toggle a rider's working status (active/inactive) once accepted
+  const updateWorkStatus = (rider) => {
+    const nextStatus = rider.workStatus === "active" ? "inactive" : "active";
+
+    axiosSecure
+      .patch(`/riders/${rider._id}/work-status`, { workStatus: nextStatus })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            title: "Working Status Updated",
+            text: `${rider.riderName} is now ${nextStatus}.`,
+            icon: "success",
+            timer: 1200,
+            showConfirmButton: false,
+          });
+          refetch();
+        }
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Something went wrong",
+          text: "Couldn't update working status. Please try again.",
+          icon: "error",
+        });
+      });
+  };
+
   const handleAccept = (rider) => updateRiderStatus(rider, "accepted");
   const handleReject = (rider) => updateRiderStatus(rider, "rejected");
 
@@ -93,6 +128,29 @@ const ApproveRider = () => {
             });
           });
       }
+    });
+  };
+
+  // NEW: view full rider details in a modal instead of showing every column
+  const handleViewDetails = (rider) => {
+    Swal.fire({
+      title: rider.riderName,
+      html: `
+        <div style="text-align:left; font-size:14px; line-height:1.7;">
+          <p><strong>Email:</strong> ${rider.riderEmail}</p>
+          <p><strong>Phone:</strong> ${rider.riderPhoneNumber}</p>
+          <p><strong>Region / District:</strong> ${rider.riderDistrict}, ${rider.riderRegion}</p>
+          <p><strong>License No:</strong> ${rider.licenseNumber}</p>
+          <p><strong>Bike:</strong> ${rider.bikeBrand} (${rider.bikeRegistrationNumber})</p>
+          <p><strong>Status:</strong> ${rider.status}</p>
+          ${
+            rider.status === "accepted"
+              ? `<p><strong>Working Status:</strong> ${rider.workStatus || "inactive"}</p>`
+              : ""
+          }
+        </div>
+      `,
+      confirmButtonText: "Close",
     });
   };
 
@@ -137,16 +195,14 @@ const ApproveRider = () => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px] text-left text-sm">
+          <table className="w-full min-w-[600px] text-left text-sm">
             <thead>
               <tr className="border-b border-gray-100 text-xs font-semibold uppercase tracking-wide text-gray-400">
                 <th className="px-3 py-3">Name</th>
                 <th className="px-3 py-3">Email</th>
-                <th className="px-3 py-3">Phone</th>
-                <th className="px-3 py-3">Region / District</th>
-                <th className="px-3 py-3">License No</th>
-                <th className="px-3 py-3">Bike</th>
-                <th className="px-3 py-3">Status</th>
+                <th className="px-3 py-3">
+                  {activeTab === "accepted" ? "Working Status" : "Status"}
+                </th>
                 <th className="px-3 py-3 text-right">Actions</th>
               </tr>
             </thead>
@@ -162,33 +218,38 @@ const ApproveRider = () => {
                   <td className="px-3 py-3 text-gray-600">
                     {rider.riderEmail}
                   </td>
-                  <td className="px-3 py-3 text-gray-600">
-                    {rider.riderPhoneNumber}
-                  </td>
-                  <td className="px-3 py-3 text-gray-600">
-                    {rider.riderDistrict}, {rider.riderRegion}
-                  </td>
-                  <td className="px-3 py-3 text-gray-600">
-                    {rider.licenseNumber}
-                  </td>
-                  <td className="px-3 py-3 text-gray-600">
-                    <p>{rider.bikeBrand}</p>
-                    <p className="text-xs text-gray-400">
-                      {rider.bikeRegistrationNumber}
-                    </p>
-                  </td>
                   <td className="px-3 py-3">
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${
-                        statusStyles[rider.status] ||
-                        "bg-gray-100 text-gray-600"
-                      }`}
-                    >
-                      {rider.status}
-                    </span>
+                    {activeTab === "accepted" ? (
+                      <button
+                        onClick={() => updateWorkStatus(rider)}
+                        className={`rounded-full px-2.5 py-1 text-xs font-semibold capitalize transition ${
+                          workStatusStyles[rider.workStatus] ||
+                          workStatusStyles.inactive
+                        }`}
+                        title="Click to toggle working status"
+                      >
+                        {rider.workStatus || "inactive"}
+                      </button>
+                    ) : (
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${
+                          statusStyles[rider.status] ||
+                          "bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {rider.status}
+                      </span>
+                    )}
                   </td>
                   <td className="px-3 py-3">
                     <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => handleViewDetails(rider)}
+                        className="rounded-lg border border-gray-200 p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-[#113a3a]"
+                        title="View details"
+                      >
+                        <FaEye size={14} />
+                      </button>
                       {activeTab === "pending" && (
                         <>
                           <button

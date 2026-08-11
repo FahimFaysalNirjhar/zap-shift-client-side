@@ -26,6 +26,12 @@ const NAV_ITEMS = [
         roles: ["admin"],
       },
       {
+        to: "/dashboard/assign-rider",
+        label: "Assign Riders",
+        icon: "truck",
+        roles: ["admin"],
+      },
+      {
         to: "/dashboard/user-management",
         label: "User Management",
         icon: "users",
@@ -77,6 +83,14 @@ const ICONS = {
       <path d="M15 19l2 2l4 -4" />
     </>,
   ),
+  truck: strokeIcon(
+    <>
+      <path d="M3 17h1a2 2 0 0 0 4 0h8a2 2 0 0 0 4 0h1v-6l-3 -5h-4v11" />
+      <path d="M3 9h11v8" />
+      <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+      <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    </>,
+  ),
   logout: strokeIcon(
     <>
       <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
@@ -93,7 +107,7 @@ const ICONS = {
   ),
   users: strokeIcon(
     <>
-      <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+      <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
       <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
