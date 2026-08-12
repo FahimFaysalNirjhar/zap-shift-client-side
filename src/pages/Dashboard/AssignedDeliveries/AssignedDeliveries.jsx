@@ -41,7 +41,11 @@ const AssignedDeliveries = () => {
   const updateStatus = (parcel, newStatus, successMsg) => {
     setUpdatingId(parcel._id);
     axiosSecure
-      .patch(`/parcels/${parcel._id}/status`, { deliveryStatus: newStatus })
+      .patch(`/parcels/${parcel._id}/status`, {
+        deliveryStatus: newStatus,
+        riderId: parcel.riderId,
+        trackingId: parcel.trackingId,
+      })
       .then((res) => {
         if (res.data.modifiedCount) {
           refetch();

@@ -59,7 +59,8 @@ const AssignRiders = () => {
       riderId: rider._id,
       riderEmail: rider.riderEmail,
       riderName: rider.riderName,
-      deliveryStatus: "rider-assigned",
+      deliveryStatus: "driver_assigned",
+      trackingId: selectedParcel.trackingId,
     };
 
     axiosSecure
