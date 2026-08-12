@@ -25,6 +25,7 @@ const NAV_ITEMS = [
         icon: "route",
         roles: ["rider"],
       },
+
       {
         to: "/dashboard/approve-rider",
         label: "Approve Rider",
@@ -42,6 +43,12 @@ const NAV_ITEMS = [
         label: "User Management",
         icon: "users",
         roles: ["admin"],
+      },
+      {
+        to: "/dashboard/completed-deliveries",
+        label: "Completed Deliveries",
+        icon: "flag",
+        roles: ["rider"],
       },
     ],
   },
@@ -125,6 +132,13 @@ const ICONS = {
       <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+    </>,
+  ),
+  flag: strokeIcon(
+    <>
+      <path d="M5 21v-17" />
+      <path d="M5 4l14 4l-14 4" />
+      <path d="M5 12l7 -2l7 2" />
     </>,
   ),
 };
