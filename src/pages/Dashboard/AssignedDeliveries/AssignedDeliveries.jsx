@@ -6,16 +6,16 @@ import Swal from "sweetalert2";
 import { FaCheck, FaTimes, FaBoxOpen, FaFlagCheckered } from "react-icons/fa";
 
 const STATUS_LABELS = {
-  driver_assigned: "Awaiting Response",
+  rider_assigned: "Awaiting Response",
   rider_accepted: "Accepted",
   picked_up: "Picked Up",
   delivered: "Delivered",
 };
 
 const STATUS_BADGE_CLASS = {
-  driver_assigned: "badge-warning",
+  rider_assigned: "badge-warning",
   rider_accepted: "badge-info",
-  picked_up: "badge-primary",
+  picked_up: "badge-primary text-black",
   delivered: "badge-success",
 };
 
@@ -32,7 +32,7 @@ const AssignedDeliveries = () => {
     queryKey: ["parcels", "assigned", user.email],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/parcels/rider?riderEmail=${user.email}&deliveryStatus=driver_assigned,rider_accepted,picked_up`,
+        `/parcels/rider?riderEmail=${user.email}&deliveryStatus=rider_assigned,rider_accepted,picked_up`,
       );
       return res.data;
     },
@@ -102,7 +102,7 @@ const AssignedDeliveries = () => {
   const renderActions = (parcel) => {
     const busy = updatingId === parcel._id;
 
-    if (parcel.deliveryStatus === "driver_assigned") {
+    if (parcel.deliveryStatus === "rider_assigned") {
       return (
         <div className="flex gap-2">
           <button
