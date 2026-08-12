@@ -10,6 +10,12 @@ const NAV_ITEMS = [
     section: null,
     links: [
       {
+        to: "/dashboard/",
+        label: "Home",
+        icon: "home",
+        end: true,
+      },
+      {
         to: "/dashboard/parcels",
         label: "My Parcels",
         icon: "box",
@@ -25,7 +31,6 @@ const NAV_ITEMS = [
         icon: "route",
         roles: ["rider"],
       },
-
       {
         to: "/dashboard/approve-rider",
         label: "Approve Rider",
@@ -74,6 +79,13 @@ const strokeIcon = (paths, extraClass = "") => (
 );
 
 const ICONS = {
+  home: strokeIcon(
+    <>
+      <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+      <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+    </>,
+  ),
   box: strokeIcon(
     <>
       <path d="M12 3l8 4.5v9l-8 4.5l-8 -4.5v-9z" />
