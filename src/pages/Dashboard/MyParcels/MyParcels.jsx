@@ -3,7 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 // Icon set kept in the same stroke/tabler style as DashboardLayout
 const Icon = {
@@ -95,6 +95,19 @@ const Icon = {
     >
       <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
       <path d="M4 13h3.5l1.5 2h6l1.5 -2h3.5" />
+    </svg>
+  ),
+  track: (
+    <svg
+      viewBox="0 0 24 24"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      strokeWidth="2"
+      fill="none"
+      stroke="currentColor"
+      className="size-4"
+    >
+      <path d="M9 20l-5.447 -2.724a1 1 0 0 1 -.553 -.894v-11.764a1 1 0 0 1 1.447 -.894l4.553 2.276m0 13l6 -3m-6 -13l6 3m0 10v-10m0 10l5.447 2.724a1 1 0 0 0 1.553 -.894v-11.764a1 1 0 0 0 -.553 -.894l-5.447 -2.724" />
     </svg>
   ),
 };
@@ -284,6 +297,16 @@ const MyParcels = () => {
                       </td>
                       <td className="px-4 sm:px-6 py-4">
                         <div className="flex items-center justify-end gap-2">
+                          {p.trackingId && (
+                            <Link
+                              to={`/parcel-tracking/${p.trackingId}`}
+                              aria-label="Track parcel"
+                              title="Track parcel"
+                              className="btn btn-sm btn-square btn-ghost text-emerald-600 hover:bg-emerald-50"
+                            >
+                              {Icon.track}
+                            </Link>
+                          )}
                           <button
                             onClick={() => setViewing(p)}
                             aria-label="View parcel details"
