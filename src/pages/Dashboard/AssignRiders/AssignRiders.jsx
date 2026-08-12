@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaEye } from "react-icons/fa";
 import { PiMotorcycleFill } from "react-icons/pi";
@@ -11,6 +11,7 @@ const AssignRiders = () => {
   const detailsModalRef = useRef();
   const [selectedParcel, setSelectedParcel] = useState(null);
   const [assigningId, setAssigningId] = useState(null);
+  const queryClient = useQueryClient();
 
   const {
     data: parcels = [],
@@ -69,7 +70,7 @@ const AssignRiders = () => {
         if (res.data.modifiedCount) {
           riderModalRef.current.close();
           parcelRefetch();
-
+          queryClient.invalidateQueries({ queryKey: ["riders", "available"] });
           Swal.fire({
             toast: true,
             position: "top-end",
