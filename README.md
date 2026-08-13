@@ -12,10 +12,11 @@ ZapShift is a full-stack parcel delivery platform built with the MERN stack. It 
 
 Use the following credentials to log in and explore the **Admin Dashboard**:
 
-| Field | Value             |
-| ----- | ----------------- |
-| Email | `admin@admin.com` |
-| Role  | `admin`           |
+| Field    | Value               |
+| -------- | ------------------- |
+| Email    | `admin@example.com` |
+| Role     | `admin`             |
+| Password | `123456@Qa`         |
 
 > This is a demo account seeded for reviewers/graders to explore admin-only features (rider approval, user management, parcel/rider assignment, platform-wide stats).
 
