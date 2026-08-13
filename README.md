@@ -16,7 +16,7 @@ Use the following credentials to log in and explore the **Admin Dashboard**:
 | -------- | ------------------- |
 | Email    | `admin@example.com` |
 | Role     | `admin`             |
-| Password | `123456@Qa`         |
+| Password | `Password@123`      |
 
 > This is a demo account seeded for reviewers/graders to explore admin-only features (rider approval, user management, parcel/rider assignment, platform-wide stats).
 
