@@ -23,14 +23,8 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to="/services" className={navStyle}>
-          Services
-        </NavLink>
-      </li>
-
-      <li>
         <NavLink to="/coverage" className={navStyle}>
-          Coverage
+          Coverage Area
         </NavLink>
       </li>
       <li>
@@ -42,12 +36,6 @@ const Navbar = () => {
       <li>
         <NavLink to="/about" className={navStyle}>
           About Us
-        </NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/pricing" className={navStyle}>
-          Pricing
         </NavLink>
       </li>
 

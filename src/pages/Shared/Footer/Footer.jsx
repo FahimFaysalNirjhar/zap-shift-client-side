@@ -12,14 +12,8 @@ const Footer = () => {
   const links = (
     <>
       <li>
-        <NavLink to="/services" className={navStyle}>
-          Services
-        </NavLink>
-      </li>
-
-      <li>
         <NavLink to="/coverage" className={navStyle}>
-          Coverage
+          Coverage Area
         </NavLink>
       </li>
 
@@ -32,12 +26,6 @@ const Footer = () => {
       <li>
         <NavLink to="/about" className={navStyle}>
           About Us
-        </NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/pricing" className={navStyle}>
-          Pricing
         </NavLink>
       </li>
 

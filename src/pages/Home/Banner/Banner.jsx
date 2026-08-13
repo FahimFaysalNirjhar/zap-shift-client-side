@@ -2,6 +2,7 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { ImArrowUpRight2 } from "react-icons/im";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -45,19 +46,28 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white">
+                  <Link
+                    to="/dashboard/parcels"
+                    className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white"
+                  >
                     Track Your Parcel
-                  </button>
+                  </Link>
 
-                  <button className="w-9 h-9 rounded-full bg-black flex items-center justify-center ">
+                  <Link
+                    to="/dashboard/parcels"
+                    className="w-9 h-9 rounded-full bg-black flex items-center justify-center "
+                  >
                     <ImArrowUpRight2 className="text-primary text-sm" />
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Rider Button */}
-                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
+                <Link
+                  to="/rider"
+                  className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]"
+                >
                   Be A Rider
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -104,19 +114,28 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white">
+                  <Link
+                    to="/dashboard/parcels"
+                    className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white"
+                  >
                     Track Your Parcel
-                  </button>
+                  </Link>
 
-                  <button className="w-9 h-9 rounded-full bg-black flex items-center justify-center ">
+                  <Link
+                    to="/dashboard/parcels"
+                    className="w-9 h-9 rounded-full bg-black flex items-center justify-center "
+                  >
                     <ImArrowUpRight2 className="text-primary text-sm" />
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Rider Button */}
-                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
+                <Link
+                  to="/rider"
+                  className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]"
+                >
                   Be A Rider
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -163,19 +182,28 @@ const Banner = () => {
               <div className="py-6 flex flex-wrap items-center gap-4 mt-8">
                 {/* Track Button */}
                 <div className="flex items-center">
-                  <button className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white">
+                  <Link
+                    to="/dashboard/parcels"
+                    className="btn bg-primary border-none text-black font-bold rounded-full hover:!bg-[#0F172A] hover:!text-white"
+                  >
                     Track Your Parcel
-                  </button>
+                  </Link>
 
-                  <button className="w-9 h-9 rounded-full bg-black flex items-center justify-center ">
+                  <Link
+                    to="/dashboard/parcels"
+                    className="w-9 h-9 rounded-full bg-black flex items-center justify-center "
+                  >
                     <ImArrowUpRight2 className="text-primary text-sm" />
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Rider Button */}
-                <button className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]">
+                <Link
+                  to="/rider"
+                  className="btn btn-outline rounded-full border-gray-300 text-black font-semibold px-6 hover:bg-[#C5E829] hover:border-[#C5E829] hover:text-[#0F172A]"
+                >
                   Be A Rider
-                </button>
+                </Link>
               </div>
             </div>
 
