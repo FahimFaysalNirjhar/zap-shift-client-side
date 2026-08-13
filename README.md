@@ -1,16 +1,89 @@
-# React + Vite
+# 🚚 ZapShift — Parcel Delivery Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ZapShift is a full-stack parcel delivery platform built with the MERN stack. It connects senders, riders, and admins in one system — from booking a pickup, to assigning a rider, to real-time delivery tracking, all the way through to payment and payout.
 
-Currently, two official plugins are available:
+## 🔗 Live Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Live Site:** https://zapshift-app.surge.sh
+- **Server API:** https://zap-shift-server-side-three.vercel.app
 
-## React Compiler
+## 🔑 Admin Credentials
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Use the following credentials to log in and explore the **Admin Dashboard**:
 
-## Expanding the ESLint configuration
+| Field | Value             |
+| ----- | ----------------- |
+| Email | `admin@admin.com` |
+| Role  | `admin`           |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> This is a demo account seeded for reviewers/graders to explore admin-only features (rider approval, user management, parcel/rider assignment, platform-wide stats).
+
+## ✨ Key Features
+
+- 🔐 **Role-based access control** — separate dashboards and permissions for `user`, `rider`, and `admin` roles, enforced on both frontend routing and backend middleware.
+- 📦 **Parcel booking & management** — users can create, view, and pay for parcel deliveries, with a live cost calculator based on parcel type, weight, and district.
+- 💳 **Stripe payment integration** — secure checkout sessions with automatic tracking ID generation and payment history.
+- 🛵 **Rider workflow** — admins assign available riders by district; riders accept/reject deliveries and update status through pickup and delivery.
+- 📍 **Real-time parcel tracking** — a public tracking page (no login required) shows a full timeline of a parcel's journey from booking to delivery.
+- 📊 **Dashboards with data visualization** — admin and user/rider dashboards built with Recharts, showing parcel status breakdowns, rider availability, and earnings.
+- 💰 **Automated rider payouts** — delivery payout calculated per parcel based on same-district vs. cross-district delivery.
+- 📱 **Fully responsive** — dedicated mobile card layouts alongside desktop tables across all dashboard views.
+
+## 🛠️ Tech Stack
+
+**Frontend**
+
+- React + Vite
+- Tailwind CSS + DaisyUI
+- TanStack Query (React Query)
+- React Router
+- Recharts
+- SweetAlert2
+- React Icons
+- Firebase Authentication
+
+**Backend**
+
+- Node.js + Express
+- MongoDB (native driver)
+- Firebase Admin SDK (token verification)
+- Stripe (payments)
+
+**Deployment**
+
+- Frontend: Surge
+- Backend: Vercel (serverless)
+
+## 📂 Project Structure (high level)
+
+```
+zap-shift-client/     # React frontend
+zap-shift-server-side/ # Express + MongoDB backend
+```
+
+## 🚀 Getting Started Locally
+
+### Backend
+
+```bash
+cd zap-shift-server-side
+npm install
+# add a .env file with DB_USER, DB_PASSWORD, STRIPE_SECRET, SITE_DOMAIN, FB_SERVICE_KEY
+node index.js
+```
+
+### Frontend
+
+```bash
+cd zap-shift-client
+npm install
+npm run dev
+```
+
+## 👤 Author
+
+**Fahim Faysal**
+MERN Stack Developer
+
+- GitHub: [FahimFaysalNirjhar](https://github.com/FahimFaysalNirjhar)
+- LinkedIn: [Fahim Faysal](https://www.linkedin.com/in/fahim-faysal-a62b91153/)
